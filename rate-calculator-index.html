@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rate Adjustment Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label, input {
+      display: block;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    input {
+      padding: 8px;
+      font-size: 1em;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <h2>Rate Adjustment Calculator</h2>
+  <label for="minutes">Actual Time Worked (minutes):</label>
+  <input type="number" id="minutes" placeholder="e.g., 30" />
+
+  <label for="desiredRate">Desired Hourly Rate (€):</label>
+  <input type="number" id="desiredRate" placeholder="e.g., 20" />
+
+  <label for="clientRate">Client Hourly Rate (€):</label>
+  <input type="number" id="clientRate" placeholder="e.g., 17" />
+
+  <button onclick="calculateTimeToCharge()">Calculate Time to Charge</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateTimeToCharge() {
+      const minutesWorked = parseFloat(document.getElementById('minutes').value);
+      const desiredRate = parseFloat(document.getElementById('desiredRate').value);
+      const clientRate = parseFloat(document.getElementById('clientRate').value);
+
+      if (isNaN(minutesWorked) || isNaN(desiredRate) || isNaN(clientRate) || clientRate === 0) {
+        document.getElementById('result').innerText = 'Please enter valid numbers.';
+        return;
+      }
+
+      const hoursWorked = minutesWorked / 60;
+      const timeToChargeHours = (hoursWorked * desiredRate) / clientRate;
+      const timeToChargeMinutes = timeToChargeHours * 60;
+
+      document.getElementById('result').innerText = `You need to charge approximately ${timeToChargeMinutes.toFixed(1)} minutes to meet your desired rate.`;
+    }
+  </script>
+</body>
+</html>
